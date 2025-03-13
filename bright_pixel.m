@@ -148,7 +148,7 @@ if ~isempty(imageJOriginal)
     
         if ~isempty(removeAllCols)
             %colsTable = array2table(removeAllCols, 'VariableNames', {'X', 'Y'});
-            %writetable(colsTable, 'dark defects.xlsx', 'Sheet', 'Col Coordinates', 'WriteMode', 'Append')
+            %writetable(colsTable, 'bright defects.xlsx', 'Sheet', 'Col Coordinates', 'WriteMode', 'Append')
     
             col_toRemove = ismember(imageJOriginal, removeAllCols, 'rows');
             imageJOriginal = imageJOriginal(~col_toRemove, :);
@@ -265,7 +265,7 @@ if ~isempty(imageJOriginal)
     
         if ~isempty(removeAllRows)
             %rowsTable = array2table(removeAllRows, 'VariableNames', {'X', 'Y'});
-            %writetable(rowsTable, 'dark defects.xlsx', 'Sheet', 'Row Coordinates');
+            %writetable(rowsTable, 'bright defects.xlsx', 'Sheet', 'Row Coordinates');
     
             row_toRemove = ismember(imageJOriginal, removeAllRows, 'rows');
             imageJOriginal = imageJOriginal(~row_toRemove, :);
