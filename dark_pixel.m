@@ -21,13 +21,13 @@ I = double(I);
 
 % Calculate mean pixel value and define bright defect threshold
 meanValue = mean(I, 'all');
-criterionBright = meanValue / 0.5;
+criterionDark = meanValue * 0.5;
 
 % Identify bright defects using logical indexing
-brightDefect = I > criterionBright;
+darkDefect = I < criterionDark;
 
 % Extract defect locations
-[defectRows, defectCols] = find(brightDefect);
+[defectRows, defectCols] = find(darkDefect);
 
 % Offset cropped coordinates back to original image dimensions
 originalCols = defectCols + (croppedX_start - 1);
@@ -165,7 +165,7 @@ if ~isempty(imageJOriginal)
                 colRanges(any(colRanges(:,3) == 0 & (1:size(colRanges,1))' ~= 1, 2), :) = [];
                 
                 colRangesTable = array2table(colRanges, 'VariableNames', {'Range X', 'Range Y', 'Count'});
-                writetable(colRangesTable, 'bright defects.xlsx', 'Sheet', 'Column Ranges', 'WriteMode', 'Append');
+                writetable(colRangesTable, 'dark defects.xlsx', 'Sheet', 'Column Ranges', 'WriteMode', 'Append');
             end
         end
     end
@@ -282,7 +282,7 @@ if ~isempty(imageJOriginal)
                 rowRanges(any(rowRanges(:,3) == 0 & (1:size(rowRanges,1))' ~= 1, 2), :) = [];
                 
                 rowRangesTable = array2table(rowRanges, 'VariableNames', {'Range X', 'Range Y', 'Count'});
-                writetable(rowRangesTable, 'bright defects.xlsx', 'Sheet', 'Row Ranges', 'WriteMode', 'Append');
+                writetable(rowRangesTable, 'dark defects.xlsx', 'Sheet', 'Row Ranges', 'WriteMode', 'Append');
             end       
         end
     end
@@ -389,7 +389,7 @@ if ~isempty(imageJOriginal)
                     partialColCoordinates(any(partialColCoordinates(:,3) == 0 & (1:size(partialColCoordinates,1))' ~= 1, 2), :) = [];
                         
                     colClustersTable = array2table(partialColCoordinates, 'VariableNames', {'X', 'Y', 'Count'});
-                    writetable(colClustersTable, 'bright defects.xlsx', 'Sheet', 'Partial Column Clusters', 'WriteMode', 'Append');
+                    writetable(colClustersTable, 'dark defects.xlsx', 'Sheet', 'Partial Column Clusters', 'WriteMode', 'Append');
 
                 end
                 
@@ -495,7 +495,7 @@ if ~isempty(imageJOriginal)
                     partialRowCoordinates(any(partialRowCoordinates(:,3) == 0 & (1:size(partialRowCoordinates,1))' ~= 1, 2), :) = [];
 
                     rowClustersTable = array2table(partialRowCoordinates, 'VariableNames', {'X', 'Y', 'Count'});
-                    writetable(rowClustersTable, 'bright defects.xlsx', 'Sheet', 'Partial Row Clusters', 'WriteMode', 'Append');
+                    writetable(rowClustersTable, 'dark defects.xlsx', 'Sheet', 'Partial Row Clusters', 'WriteMode', 'Append');
                 end
                 
             end
@@ -510,7 +510,7 @@ if ~isempty(imageJOriginal)
         pixelCoordinates(2:end, 3) = NaN;
         pixelCoordinates(any(pixelCoordinates(:,3) == 0 & (1:size(pixelCoordinates,1))' ~= 1, 2), :) = [];
         pixelsTable = array2table(pixelCoordinates, 'VariableNames', {'X', 'Y', 'Count'});
-        writetable(pixelsTable, 'bright defects.xlsx', 'Sheet', 'Pixels', 'WriteMode', 'Append');
+        writetable(pixelsTable, 'dark defects.xlsx', 'Sheet', 'Pixels', 'WriteMode', 'Append');
         
         % Chunks
         sortedPixelCoordinatesX = sortrows(imageJOriginal, [1,2]);
@@ -597,7 +597,7 @@ if ~isempty(imageJOriginal)
 
                     if ~isempty(chunkCoordinates)
                         chunksTable = array2table(chunkCoordinates, 'VariableNames', {'X', 'Y'});
-                        writetable(chunksTable, 'bright defects.xlsx', 'Sheet', 'Clusters', 'WriteMode', 'Append');
+                        writetable(chunksTable, 'dark defects.xlsx', 'Sheet', 'Clusters', 'WriteMode', 'Append');
                     end
             
     
@@ -610,7 +610,7 @@ if ~isempty(imageJOriginal)
 
                         if ~isempty(pixelCoordinates)
                             pixelsTable = array2table(pixelCoordinates, 'VariableNames', {'X', 'Y', 'Count'});
-                            writetable(pixelsTable, 'bright defects.xlsx', 'Sheet', 'Pixels', 'WriteMode', 'Overwrite');
+                            writetable(pixelsTable, 'dark defects.xlsx', 'Sheet', 'Pixels', 'WriteMode', 'Overwrite');
 
                         end
                     end
